@@ -2,12 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const cors = require("cors")
+const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
-
-mongoose.connect(process.env.DATABASE)
+// MongoDB Atlas connection
+mongoose.connect(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const db = mongoose.connection;
 
@@ -15,24 +18,28 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB Atlas');
 });
-app.get('/' , (req , res)=>{
-    res.send('hello ')
-})
 
+// Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: '*',
-    methods: 'GET,POST,PUT,DELETE',
-    credentials: true,
-  }));
+  origin: '*',
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true,
+}));
 
-const auth = require("./routes/auth")
-app.use("/api", auth)
+// Routes
+const authRoutes = require("./routes/auth");
+app.use("/api", authRoutes);
 
-const port = 2000;
-
-app.listen(port, () => {
-    console.log(`app is running at port ${port}`)
+// Test route
+app.get('/', (req, res) => {
+  res.send('Hello World');
 });
 
+// Server setup
+const port = process.env.PORT || 2000;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
