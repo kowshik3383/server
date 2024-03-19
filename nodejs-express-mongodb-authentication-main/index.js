@@ -21,7 +21,11 @@ app.get('/' , (req , res)=>{
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true,
+  }));
 
 const auth = require("./routes/auth")
 app.use("/api", auth)
