@@ -6,7 +6,7 @@ const User =  require("../models/user");
 
 exports.signup = (req, res) => {
    const errors = validationResult(req);
-   const {email, password, name} = req.body;
+   const {name ,email, password} = req.body;
 
    if(!errors.isEmpty()){
      return res.status(422).json({
@@ -33,6 +33,7 @@ exports.signup = (req, res) => {
    })
    .catch((error)=>{
      return res.status(400).json({error: error});
+     console.log(error)
    })
 }
 
