@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sign Up</h2>
+  <form id="signup-form">
+    <input type="text" id="name" name="name" placeholder="Name" required><br>
+    <input type="email" id="email" name="email" placeholder="Email" required><br>
+    <input type="password" id="password" name="password" placeholder="Password" required><br>
+    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required><br>
+    <input type="submit" value="Sign Up">
+  </form>
+
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const userData = {};
+      formData.forEach((value, key) => {
+        userData[key] = value;
+      });
+
+      // Make a POST request to your signup endpoint with userData
+      fetch("https://server-4-muw9.onrender.com/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // Handle response
+        alert("Sign up successful!"); // Example: show success message
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Error signing up. Please try again."); // Example: show error message
+      });
+    });
+  </script>
+</body>
+</html>
