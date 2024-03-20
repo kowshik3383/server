@@ -20,7 +20,7 @@ db.once('open', () => {
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://mern-book-nest-oqmd-pkruiuoga-kowshik3383s-projects.vercel.app/sign-up',
+  origin: '*',
   methods: 'GET,POST,PUT,DELETE',
   credentials: true,
 }));
