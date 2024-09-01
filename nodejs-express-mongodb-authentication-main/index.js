@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
 // MongoDB Atlas connection
-mongoose.connect('mongodb+srv://kowshik:amma1234@cluster0.lvxhzlw.mongodb.net/');
+mongoose.connect('mongodb+srv://kowshik:amma1234@cluster0.lvxhzlw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 const db = mongoose.connection;
 
